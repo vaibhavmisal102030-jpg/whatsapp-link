@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head><title>WhatsApp Coexistence</title></head>
+<body>
+    <script>
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId: '2296882127485839', 
+                xfbml: true,
+                version: 'v21.0'
+            });
+        };
+        const launchWhatsAppSignup = () => {
+            FB.login((res) => { if (res.authResponse) alert("Connected! Check Meta Manager."); }, {
+                config_id: '1613667492998555',
+                response_type: 'code',
+                override_default_response_type: true,
+                extras: { "feature": "whatsapp_coexistence", "version": "v3" }
+            });
+        }
+    </script>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net"></script>
+    <button onclick="launchWhatsAppSignup()" style="background:#1877f2;color:#fff;padding:20px;border:none;border-radius:5px;cursor:pointer;">
+        START COEXISTENCE QR FLOW
+    </button>
+</body>
+</html>
