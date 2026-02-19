@@ -1,27 +1,56 @@
 <!DOCTYPE html>
 <html>
-<head><title>WhatsApp Coexistence</title></head>
-<body>
+<head>
+    <title>WhatsApp Coexistence Linker</title>
+</head>
+<body style="font-family: Arial, sans-serif; text-align: center; padding-top: 50px;">
+
+    <h1>WhatsApp Coexistence Setup</h1>
+    <p>Click the button below to link your Mobile App to the Cloud API.</p>
+
+    <!-- The Button -->
+    <button onclick="launchWhatsAppSignup()" style="background-color: #1877f2; color: white; padding: 20px 40px; border: none; border-radius: 8px; cursor: pointer; font-size: 18px; font-weight: bold;">
+        START COEXISTENCE QR FLOW
+    </button>
+
     <script>
+        // 1. This part starts the Facebook SDK
         window.fbAsyncInit = function() {
             FB.init({
-                appId: '2296882127485839', 
-                xfbml: true,
-                version: 'v21.0'
+                appId            : '2296882127485839', 
+                autoLogAppEvents : true,
+                xfbml            : true,
+                version          : 'v21.0'
             });
         };
+
+        // 2. This part runs when you click the button
         const launchWhatsAppSignup = () => {
-            FB.login((res) => { if (res.authResponse) alert("Connected! Check Meta Manager."); }, {
+            if (typeof FB === 'undefined') {
+                alert("Facebook script is still loading. Please wait 5 seconds.");
+                return;
+            }
+
+            FB.login((response) => {
+                if (response.authResponse) {
+                    alert("Success! You have linked your account. Now check your Meta Business Manager.");
+                } else {
+                    alert("Login failed. Make sure you are the Admin of the Meta Business account.");
+                }
+            }, {
                 config_id: '1613667492998555',
                 response_type: 'code',
                 override_default_response_type: true,
-                extras: { "feature": "whatsapp_coexistence", "version": "v3" }
+                extras: {
+                    "feature": "whatsapp_coexistence", 
+                    "version": "v3"
+                }
             });
         }
     </script>
+
+    <!-- 3. This part loads the actual Facebook script from Meta -->
     <script async defer crossorigin="anonymous" src="https://connect.facebook.net"></script>
-    <button onclick="launchWhatsAppSignup()" style="background:#1877f2;color:#fff;padding:20px;border:none;border-radius:5px;cursor:pointer;">
-        START COEXISTENCE QR FLOW
-    </button>
+
 </body>
 </html>
